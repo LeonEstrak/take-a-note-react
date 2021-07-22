@@ -21,6 +21,19 @@ const noteSlice = createSlice({
             state.tempDesc=""
         },
 
+        editNote:(state:NoteListModel, action:PayloadAction<NoteModel>)=>{
+            state.NoteList.forEach((note)=>{
+                if(note._id===action.payload._id){
+                    note.title=action.payload.title
+                    note.desc=action.payload.desc
+                }
+            })
+        },
+
+        deleteNote:(state:NoteListModel,action:PayloadAction<NoteModel>)=>{
+            state.NoteList = state.NoteList.filter((note)=>note._id!=action.payload._id);
+        },
+
         //Ideally to be used to update the state after fetching from backend
         setNoteList:(state:NoteListModel,action:PayloadAction<NoteModel[]>)=>{
             state.NoteList = action.payload
@@ -34,14 +47,6 @@ const noteSlice = createSlice({
             state.tempDesc = action.payload
         },
 
-        editNote:(state:NoteListModel, action:PayloadAction<NoteModel>)=>{
-            state.NoteList.forEach((note)=>{
-                if(note._id===action.payload._id){
-                    note.title=action.payload.title
-                    note.desc=action.payload.desc
-                }
-            })
-        }
     }
 }); 
 
@@ -49,5 +54,5 @@ export const selectNoteList = (state:RootState) => state.notes.NoteList
 export const selectTitle = (state:RootState) => state.notes.tempTitle
 export const selectDesc = (state:RootState) => state.notes.tempDesc
 
-export const {addNote, setNoteList,setTitle,setDesc,editNote} = noteSlice.actions;
+export const {addNote, setNoteList,setTitle,setDesc,editNote,deleteNote} = noteSlice.actions;
 export default noteSlice;

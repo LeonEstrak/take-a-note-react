@@ -1,7 +1,8 @@
 import { Button, TextField } from "@material-ui/core"
+import DeleteIcon from '@material-ui/icons/Delete';
 import styled from "styled-components";
 import { useAppDispatch, useAppSelector} from "../../app/hooks/hooks";
-import { editNote } from "../../app/reduxSlices/noteSlice";
+import { deleteNote, editNote } from "../../app/reduxSlices/noteSlice";
 import { closeModal, selectTempNote, selectTempNoteDesc, selectTempNoteTitle, updateModalNoteDesc, updateModalNoteTitle } from "../../app/reduxSlices/showSlice";
 import { NoteModel } from "../../models/note_model";
 
@@ -38,8 +39,19 @@ export default function EditNote(){
           onChange={(e)=>{dispatch(updateModalNoteDesc(e.target.value))}}
         />
         <BottomRowDiv>
-            <Button style={MaterialButton} onClick={handleDone}> Done </Button>
-            <Button style={MaterialButton} onClick={()=>{dispatch(closeModal())}}> Cancel </Button>
+            <LeftBottomDiv>
+            <Button
+                color="secondary"
+                startIcon={<DeleteIcon />}
+                onClick={()=>{dispatch(deleteNote(note));dispatch(closeModal())}}
+            >
+                Delete
+            </Button>
+            </LeftBottomDiv>
+            <RightBottomDiv>
+                <Button style={MaterialButton} onClick={handleDone}> Done </Button>
+                <Button style={MaterialButton} onClick={()=>{dispatch(closeModal())}}> Cancel </Button>
+            </RightBottomDiv>
         </BottomRowDiv>
     </NoteCardDiv>
 }
@@ -53,13 +65,26 @@ const DescTextField={
 };
 
 const MaterialButton = {
-    width:"2rem"
+    width:"2rem",
+    padding:"0rem 2.5rem"
 }
 
 const BottomRowDiv = styled.div`
     display: flex;
-    flex-direction: row-reverse;
     height:2rem;
+    width: 100%;
+    margin: 0rem 1rem;
+    justify-content: space-between;
+`
+
+const RightBottomDiv = styled.div`
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 0rem 1.5rem;
+`
+
+const LeftBottomDiv = styled.div`
+    display: flex;
 `
 
 const NoteCardDiv= styled.div`
@@ -75,3 +100,4 @@ const NoteCardDiv= styled.div`
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 12px 30px 0 rgba(0, 0, 0, 0.19);
     transition: 0.4s;
 `
+
