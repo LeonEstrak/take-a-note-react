@@ -1,16 +1,20 @@
 import { Button, TextField } from "@material-ui/core"
 import styled from "styled-components";
-import { useAppDispatch} from "../../app/hooks/hooks";
-import { addNote, setDesc, setTitle } from "../../app/reduxSlices/noteSlice";
-import { toggleAddVisibility } from "../../app/reduxSlices/showSlice";
+import { useAppDispatch, useAppSelector} from "../../app/hooks/hooks";
+import { editNote } from "../../app/reduxSlices/noteSlice";
+import { closeModal, selectTempNote, selectTempNoteDesc, selectTempNoteTitle, updateModalNoteDesc, updateModalNoteTitle } from "../../app/reduxSlices/showSlice";
+import { NoteModel } from "../../models/note_model";
 
-export default function AddNoteBig(title:string,desc:string){
+export default function EditNote(){
     const dispatch = useAppDispatch();
+    const note:NoteModel =useAppSelector(selectTempNote) 
+    const title = useAppSelector(selectTempNoteTitle)
+    const desc = useAppSelector(selectTempNoteDesc)
 
-    const handleDone = () => {
-        if(title.length!==0 || desc.length!==0){
-            dispatch(addNote());
-            dispatch(toggleAddVisibility())
+    let handleDone = () => {
+        if(note.title.length!==0 || note.desc.length!==0){
+            dispatch(editNote(note));
+            dispatch(closeModal())
         }
     }
     return <NoteCardDiv >
@@ -20,7 +24,7 @@ export default function AddNoteBig(title:string,desc:string){
             label="Title" 
             style={TitleTextField} 
             value={title} 
-            onChange={(e)=>dispatch(setTitle(e.target.value))} 
+            onChange={(e)=>{dispatch(updateModalNoteTitle(e.target.value))}}
         />
         <TextField
           id="outlined-multiline-static"
@@ -31,11 +35,11 @@ export default function AddNoteBig(title:string,desc:string){
           variant="outlined"
           style={DescTextField}
           value={desc}
-          onChange={(e)=>dispatch(setDesc(e.target.value))}
+          onChange={(e)=>{dispatch(updateModalNoteDesc(e.target.value))}}
         />
         <BottomRowDiv>
             <Button style={MaterialButton} onClick={handleDone}> Done </Button>
-            <Button style={MaterialButton} onClick={()=>{dispatch(toggleAddVisibility())}}> Cancel </Button>
+            <Button style={MaterialButton} onClick={()=>{dispatch(closeModal())}}> Cancel </Button>
         </BottomRowDiv>
     </NoteCardDiv>
 }
