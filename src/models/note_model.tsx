@@ -8,4 +8,6 @@ export interface NoteModel {
 
 export interface NoteListModel {
     NoteList:NoteModel[]
+    tempTitle:string
+    tempDesc:string
 }
