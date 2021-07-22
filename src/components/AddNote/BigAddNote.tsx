@@ -1,19 +1,23 @@
 import { Button, TextField } from "@material-ui/core"
-import { useState } from "react";
 import styled from "styled-components";
 import { useAppDispatch } from "../../app/hooks/hooks";
 import { addNote } from "../../app/reduxSlices/noteSlice";
+import { toggleShow } from "../../app/reduxSlices/showSlice";
 import { NoteModel } from "../../models/note_model";
 
-export default function AddNoteBig(setFocus:Function){
-    const [title,setTitle] = useState("");
-    const [desc,setDesc] = useState("");
+export default function AddNoteBig(title:string,desc:string,setTitle:Function,setDesc:Function){
+    
     const dispatch = useAppDispatch();
 
     const handleDone = () => {
         const note:NoteModel = {_id:Date.now().toString(),title:title,desc:desc,timestamp:Date.now().toLocaleString("en-IN"),}
         console.log(note);
-        dispatch(addNote(note));
+        if(title.length!==0 || desc.length!==0){
+            setTitle("")
+            setDesc("")
+            dispatch(addNote(note));
+            dispatch(toggleShow())
+        }
     }
     return <NoteCardDiv >
         <TextField 
@@ -37,7 +41,7 @@ export default function AddNoteBig(setFocus:Function){
         />
         <BottomRowDiv>
             <Button style={MaterialButton} onClick={handleDone}> Done </Button>
-            <Button style={MaterialButton} onClick={()=>setFocus(false)}> Cancel </Button>
+            <Button style={MaterialButton} onClick={()=>{dispatch(toggleShow())}}> Cancel </Button>
         </BottomRowDiv>
     </NoteCardDiv>
 }

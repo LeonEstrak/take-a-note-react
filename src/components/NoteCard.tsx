@@ -21,6 +21,12 @@ const NoteCardDiv= styled.div`
     text-overflow: ellipsis;
     overflow: hidden;
     word-break: break-all;
+    transition: 0.4s;
+
+    :hover{
+        width:100%;
+        transition: 0.4s;
+    }
 `
 
 const Title = styled.h1`

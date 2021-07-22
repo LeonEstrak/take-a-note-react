@@ -1,8 +1,11 @@
 import styled from "styled-components"
+import { useAppDispatch } from "../../app/hooks/hooks"
+import { toggleShow } from "../../app/reduxSlices/showSlice"
 
-export default function AddNoteSmall(setFocus:Function){
-    return <SmallNoteCardDiv onClick={(e)=>{setFocus(true)}}>
-        <DisplayText> Take a note...</DisplayText>
+export default function AddNoteSmall(title:string){
+    const dispatch = useAppDispatch()
+    return <SmallNoteCardDiv onClick={()=>{dispatch(toggleShow())}}>
+        <DisplayText> {title.length===0 ? "Take a note...":title }</DisplayText>
     </SmallNoteCardDiv>
 }
 
