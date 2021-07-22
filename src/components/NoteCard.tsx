@@ -7,7 +7,7 @@ export default function NoteCard(props: { note: NoteModel }) {
   const dispatcher = useAppDispatch();
   return (
     <NoteCardDiv
-    onClick={() => {
+      onClick={() => {
         dispatcher(openModal(props.note));
       }}
     >

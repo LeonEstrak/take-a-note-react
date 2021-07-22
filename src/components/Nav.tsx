@@ -1,17 +1,17 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
 export default function Nav() {
-    return (
+  return (
     <NavBarDiv>
-        <Header>Take-A-Note!</Header>
+      <Header>Take-A-Note!</Header>
     </NavBarDiv>
-    );
+  );
 }
 
 const NavBarDiv = styled.div`
-    padding: 2rem
-`
+  padding: 2rem;
+`;
 
 const Header = styled.h1`
-    color: white;
-`
+  color: white;
+`;
