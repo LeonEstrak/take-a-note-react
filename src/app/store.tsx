@@ -1,4 +1,5 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { Action, configureStore } from "@reduxjs/toolkit";
+import { ThunkAction } from "redux-thunk";
 import noteSlice from "./reduxSlices/noteSlice";
 import showSlice from "./reduxSlices/showSlice";
 
@@ -12,3 +13,10 @@ export const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
+
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  Action<string>
+>;

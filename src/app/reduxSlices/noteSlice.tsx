@@ -8,7 +8,6 @@ const initState: NoteListModel = {
       _id: "1",
       title: "title",
       desc: "descriptiondescriptiondescriptiondescription",
-      timestamp: Date.now().toString(),
     },
   ],
   tempTitle: "",
@@ -19,14 +18,8 @@ const noteSlice = createSlice({
   name: "note",
   initialState: initState,
   reducers: {
-    addNote: (state: NoteListModel) => {
-      const newNote: NoteModel = {
-        _id: Date.now().toString(),
-        title: state.tempTitle,
-        desc: state.tempDesc,
-        timestamp: Date.now().toLocaleString("en-IN"),
-      };
-      state.NoteList.push(newNote);
+    addNote: (state: NoteListModel, action: PayloadAction<NoteModel>) => {
+      state.NoteList.push(action.payload);
       state.tempTitle = "";
       state.tempDesc = "";
     },

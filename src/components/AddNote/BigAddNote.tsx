@@ -1,15 +1,15 @@
 import { Button, TextField } from "@material-ui/core";
 import styled from "styled-components";
 import { useAppDispatch } from "../../app/hooks/hooks";
-import { addNote, setDesc, setTitle } from "../../app/reduxSlices/noteSlice";
+import { setDesc, setTitle } from "../../app/reduxSlices/noteSlice";
 import { toggleAddVisibility } from "../../app/reduxSlices/showSlice";
+import { database } from "../../services/database";
 
 export default function AddNoteBig(title: string, desc: string) {
   const dispatch = useAppDispatch();
-
   const handleDone = () => {
     if (title.length !== 0 || desc.length !== 0) {
-      dispatch(addNote());
+      dispatch(database.addNoteToFireStore());
       dispatch(toggleAddVisibility());
     }
   };

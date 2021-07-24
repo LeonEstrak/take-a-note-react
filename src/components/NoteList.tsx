@@ -8,7 +8,7 @@ const renderNoteList = (noteList: NoteModel[]) =>
   noteList.map((note) => <NoteCard note={note} key={note._id} />);
 
 export default function NoteList() {
-  const noteList: NoteModel[] = useAppSelector(selectNoteList);
+  var noteList: NoteModel[] = useAppSelector(selectNoteList);
 
   return <NoteListDiv>{renderNoteList(noteList)}</NoteListDiv>;
 }

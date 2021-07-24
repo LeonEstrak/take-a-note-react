@@ -9,7 +9,6 @@ const initState = {
     _id: "1",
     title: "title",
     desc: "description",
-    timestamp: Date.now().toString(),
   },
 };
 
