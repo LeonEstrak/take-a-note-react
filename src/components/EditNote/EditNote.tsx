@@ -2,7 +2,6 @@ import { Button, TextField } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import styled from "styled-components";
 import { useAppDispatch, useAppSelector } from "../../app/hooks/hooks";
-import { deleteNote, editNote } from "../../app/reduxSlices/noteSlice";
 import {
   closeModal,
   selectTempNote,
@@ -12,6 +11,7 @@ import {
   updateModalNoteTitle,
 } from "../../app/reduxSlices/showSlice";
 import { NoteModel } from "../../models/note_model";
+import { database } from "../../services/database";
 
 export default function EditNote() {
   const dispatch = useAppDispatch();
@@ -21,7 +21,7 @@ export default function EditNote() {
 
   let handleDone = () => {
     if (note.title.length !== 0 || note.desc.length !== 0) {
-      dispatch(editNote(note));
+      dispatch(database.editNoteOnFireStore(note));
       dispatch(closeModal());
     }
   };
@@ -56,7 +56,7 @@ export default function EditNote() {
             color="secondary"
             startIcon={<DeleteIcon />}
             onClick={() => {
-              dispatch(deleteNote(note));
+              dispatch(database.deleteNoteOnFireStore(note));
               dispatch(closeModal());
             }}
           >
