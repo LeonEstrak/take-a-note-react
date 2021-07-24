@@ -1,25 +1,47 @@
-import { Button, Modal } from "@material-ui/core";
+import { Modal } from "@material-ui/core";
 import { FirebaseAuthConsumer } from "@react-firebase/auth";
-import { useState } from "react";
 import GoogleButton from "react-google-button";
 import styled from "styled-components";
 import { useAppDispatch } from "../../app/hooks/hooks";
 import { logInWithGoogle } from "../../services/Auth";
 import { database } from "../../services/database";
-
+import firebase from "firebase";
+import logo from "../../logo.svg";
 export default function Login() {
-  const [open, setOpen] = useState(true);
   const dispatch = useAppDispatch();
   return (
     <FirebaseAuthConsumer>
-      {({ isSignedIn, user }) => {
+      {({ isSignedIn, user, firebase }) => {
+        const FirebaseAuth = (firebase as firebase.app.App).auth;
+        if (FirebaseAuth === undefined) {
+          return (
+            <Modal
+              open={!isSignedIn}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <LoginDiv>
+                <img
+                  src={logo}
+                  className="App-logo"
+                  alt="logo"
+                  style={{ height: "70%" }}
+                />
+                <h2>Loading</h2>
+              </LoginDiv>
+            </Modal>
+          );
+        }
+
         if (isSignedIn === true) {
-          setOpen(false);
-          const u = user as firebase.default.User;
+          const u = user as firebase.User;
           dispatch(database.updateNoteStateFromFirestore());
           return (
             <Modal
-              open={open}
+              open={!isSignedIn}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -28,19 +50,13 @@ export default function Login() {
             >
               <LoginDiv>
                 <h1> Welcome {u.displayName}</h1>
-                <Button
-                  onClick={() => setOpen(false)}
-                  style={{ margin: "0.5rem 0 0 0" }}
-                >
-                  Click Here To Continue
-                </Button>
               </LoginDiv>
             </Modal>
           );
         } else {
           return (
             <Modal
-              open={open}
+              open={!isSignedIn}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -60,7 +76,8 @@ export default function Login() {
 
 const LoginDiv = styled.div`
   height: 40%;
-  width: 50%;
+  width: 30%;
+  padding: 2rem;
   background-color: white;
   display: flex;
   flex-direction: column;

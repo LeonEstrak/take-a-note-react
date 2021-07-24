@@ -3,13 +3,7 @@ import { NoteModel, NoteListModel } from "../../models/note_model";
 import { RootState } from "../store";
 
 const initState: NoteListModel = {
-  NoteList: [
-    {
-      _id: "1",
-      title: "title",
-      desc: "descriptiondescriptiondescriptiondescription",
-    },
-  ],
+  NoteList: [],
   tempTitle: "",
   tempDesc: "",
 };
