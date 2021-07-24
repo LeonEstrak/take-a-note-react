@@ -35,14 +35,16 @@ export namespace database {
   }
 
   export const updateNoteStateFromFirestore =
-    (): AppThunk => (dispatch, getState) => {
-      getNoteStateFromFirestore().then((noteState: NoteListModel | null) => {
-        if (noteState) {
-          dispatch(setNoteList(noteState.NoteList));
-          dispatch(setTitle(noteState.tempTitle));
-          dispatch(setDesc(noteState.tempDesc));
+    (): AppThunk<Promise<void>> => (dispatch, getState) => {
+      return getNoteStateFromFirestore().then(
+        (noteState: NoteListModel | null) => {
+          if (noteState) {
+            dispatch(setNoteList(noteState.NoteList));
+            dispatch(setTitle(noteState.tempTitle));
+            dispatch(setDesc(noteState.tempDesc));
+          }
         }
-      });
+      );
     };
 
   export const addNoteToFireStore = (): AppThunk => (dispatch, getState) => {

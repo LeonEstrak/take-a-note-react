@@ -1,4 +1,4 @@
-import { Modal } from "@material-ui/core";
+import { Dialog } from "@material-ui/core";
 import { FirebaseAuthConsumer } from "@react-firebase/auth";
 import GoogleButton from "react-google-button";
 import styled from "styled-components";
@@ -7,15 +7,18 @@ import { logInWithGoogle } from "../../services/Auth";
 import { database } from "../../services/database";
 import firebase from "firebase";
 import logo from "../../logo.svg";
+import { useState } from "react";
+
 export default function Login() {
   const dispatch = useAppDispatch();
+  const [open, setOpen] = useState(true);
   return (
     <FirebaseAuthConsumer>
       {({ isSignedIn, user, firebase }) => {
         const FirebaseAuth = (firebase as firebase.app.App).auth;
         if (FirebaseAuth === undefined) {
           return (
-            <Modal
+            <Dialog
               open={!isSignedIn}
               style={{
                 display: "flex",
@@ -32,16 +35,18 @@ export default function Login() {
                 />
                 <h2>Loading</h2>
               </LoginDiv>
-            </Modal>
+            </Dialog>
           );
         }
 
         if (isSignedIn === true) {
           const u = user as firebase.User;
-          dispatch(database.updateNoteStateFromFirestore());
+          dispatch(database.updateNoteStateFromFirestore()).then(() =>
+            setOpen(false)
+          );
           return (
-            <Modal
-              open={!isSignedIn}
+            <Dialog
+              open={open}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -51,11 +56,11 @@ export default function Login() {
               <LoginDiv>
                 <h1> Welcome {u.displayName}</h1>
               </LoginDiv>
-            </Modal>
+            </Dialog>
           );
         } else {
           return (
-            <Modal
+            <Dialog
               open={!isSignedIn}
               style={{
                 display: "flex",
@@ -66,7 +71,7 @@ export default function Login() {
               <LoginDiv>
                 <GoogleButton onClick={() => logInWithGoogle()} />
               </LoginDiv>
-            </Modal>
+            </Dialog>
           );
         }
       }}
@@ -75,12 +80,11 @@ export default function Login() {
 }
 
 const LoginDiv = styled.div`
-  height: 40%;
-  width: 30%;
   padding: 2rem;
   background-color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 1);
 `;
