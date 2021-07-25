@@ -24,3 +24,11 @@ yarn-error.log*
 
 #Secrets
 src/firebaseConfig.ts
+
+#firebase config files
+.firebase/
+.firebaserc
+firebase.json
+firestore-debug.log
+firestore.*
+ui-debug.log
