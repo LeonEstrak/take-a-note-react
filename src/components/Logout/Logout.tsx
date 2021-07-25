@@ -24,7 +24,12 @@ export default function Logout({
         alignItems: "center",
       }}
     >
-      <LogoutDiv>
+      <LogoutDiv
+        onClick={(e) => {
+          e.stopPropagation();
+          setOpenSignOutModal(false);
+        }}
+      >
         <Avatar src={avatarURL} />
         <ThankYouNote>Thank You For using Take-a-Note! </ThankYouNote>
         <div>

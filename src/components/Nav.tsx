@@ -47,6 +47,9 @@ const NavBarDiv = styled.div`
 
 const Header = styled.h1`
   color: white;
+  @media (max-width: 1024px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const ProfilePic = styled.img`
@@ -55,6 +58,11 @@ const ProfilePic = styled.img`
   border-radius: 2rem;
   height: 3rem;
   width: 3rem;
+
+  @media (max-width: 1024px) {
+    height: 2.5rem;
+    width: 2.5rem;
+  }
 `;
 
 const NamePlaceholder = styled.div`

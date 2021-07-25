@@ -30,6 +30,7 @@ const NoteCardDiv = styled.div`
   text-overflow: ellipsis;
   overflow: hidden;
   word-break: break-all;
+  white-space: nowrap;
   transition: 0.4s;
 
   :hover {

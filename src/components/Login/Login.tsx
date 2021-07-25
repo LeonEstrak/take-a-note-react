@@ -8,6 +8,7 @@ import { database } from "../../services/database";
 import firebase from "firebase";
 import logo from "../../logo.svg";
 import { useState } from "react";
+import { setNoteList } from "../../app/reduxSlices/noteSlice";
 
 export default function Login() {
   const dispatch = useAppDispatch();
@@ -59,6 +60,7 @@ export default function Login() {
             </Dialog>
           );
         } else {
+          dispatch(setNoteList([]));
           return (
             <Dialog
               open={!isSignedIn}

@@ -19,4 +19,8 @@ const NoteListDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 1024px) {
+    width: 100vw;
+  }
 `;

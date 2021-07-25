@@ -126,4 +126,8 @@ const NoteCardDiv = styled.div`
   border-radius: 1rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 12px 30px 0 rgba(0, 0, 0, 0.19);
   transition: 0.4s;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 `;

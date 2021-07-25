@@ -39,6 +39,10 @@ const SmallNoteCardDiv = styled.div`
     width: 50%;
     height: 16.5rem;
   }
+
+  @media (max-width: 1024px) {
+    width: 90%;
+  }
 `;
 
 const DisplayText = styled.h2`
