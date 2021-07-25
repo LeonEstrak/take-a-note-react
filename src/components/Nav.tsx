@@ -78,4 +78,7 @@ const NamePlaceholder = styled.div`
     width: 22rem;
     transition: 0.4s;
   }
+  @media (max-width: 1024px) {
+    display: none;
+  }
 `;
